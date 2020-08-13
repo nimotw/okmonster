@@ -41,6 +41,9 @@
     // constructor
 
     function Inventory (array) {
+        console.log(getCookie('inv'));
+        //console.log('erase cookie');
+        //eraseCookie('inv');
         if (array) {
             // some number of arguments were passed
             array = [].slice.call(arguments);
@@ -156,7 +159,17 @@
                     }(items));
                 }
                 // concat the arrays and call the event
-                this.inv = this.inv.concat(items);
+                console.log('getCookie' + getCookie('inv'));
+                var g_inv = JSON.parse(getCookie('inv'));
+                if (!g_inv)
+                    this.inv = this.inv.concat(items);
+                else
+                    this.inv = g_inv.concat(items);
+                var ss = JSON.stringify(this.inv);
+                setCookie('inv', ss);
+                console.log('set:' + ss);
+                console.log('get:' + getCookie('inv'));
+
                 _attachEvent(this, null, items, 'pickup');
             }
             return this; // for chaining
@@ -189,6 +202,20 @@
             if (!sep || typeof sep !== 'string') {
                 sep = options.defaultStrings.separator; // default
             }
+
+            //var ss = getCookie('inv');
+            //console.log(ss);
+            
+            var g_inv = JSON.parse(getCookie('inv'));
+            if (g_inv)
+                this.inv = g_inv;
+            else
+                this.inv = [];
+
+            //if (!this.inv) {
+            //    return options.defaultStrings.empty; // nothing is in this inventory
+            //}
+
             if (this.inv.length) {
                 return this.inv.join(sep);
             }
@@ -414,6 +441,8 @@
     // <<dropall '$var'>>
     Macro.add('dropall', {
         handler : function () {
+            console.log("dropall");
+            eraseCookie('inv');
             
             if (this.args.length !== 1) {
                 return this.error('incorrect number of arguments');
