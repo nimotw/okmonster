@@ -211,52 +211,54 @@
 
             if (this.inv.length) {
                 var puzzle = '<div id="content">';
-                    if (this.inv.join('').indexOf('碎片1') >= 0)
-                        puzzle += '<img alt=" " class="puzzle" src="slice_0_0.png">';
-                    else
-                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+                var str_puzzle = this.inv.join('');
 
-                    if (this.inv.join('').indexOf('碎片2') >= 0)
-                        puzzle += '<img alt=" " class="puzzle" src="slice_0_1.png">';
-                    else
-                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+                if (str_puzzle.indexOf('碎片1') >= 0)
+                    puzzle += '<img alt=" " class="puzzle" src="slice_0_0.png">';
+                else
+                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
 
-                    if (this.inv.join('').indexOf('碎片3') >= 0)
-                        puzzle += '<img alt=" " class="puzzle" src="slice_0_2.png">';
-                    else
-                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+                if (str_puzzle.indexOf('碎片2') >= 0)
+                    puzzle += '<img alt=" " class="puzzle" src="slice_0_1.png">';
+                else
+                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
 
-                    if (this.inv.join('').indexOf('碎片4') >= 0)
-                        puzzle += '<img alt=" " class="puzzle" src="slice_1_0.png">';
-                    else
-                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+                if (str_puzzle.indexOf('碎片3') >= 0)
+                    puzzle += '<img alt=" " class="puzzle" src="slice_0_2.png">';
+                else
+                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
 
-                    if (this.inv.join('').indexOf('碎片5') >= 0)
-                        puzzle += '<img alt=" " class="puzzle" src="slice_1_1.png">';
-                    else
-                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+                if (str_puzzle.indexOf('碎片4') >= 0)
+                    puzzle += '<img alt=" " class="puzzle" src="slice_1_0.png">';
+                else
+                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
 
-                    if (this.inv.join('').indexOf('碎片6') >= 0)
-                        puzzle += '<img alt=" " class="puzzle" src="slice_1_2.png">';
-                    else
-                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+                if (str_puzzle.indexOf('碎片5') >= 0)
+                    puzzle += '<img alt=" " class="puzzle" src="slice_1_1.png">';
+                else
+                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
 
-                    if (this.inv.join('').indexOf('碎片7') >= 0)
-                        puzzle += '<img alt=" " class="puzzle" src="slice_2_0.png">';
-                    else
-                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+                if (str_puzzle.indexOf('碎片6') >= 0)
+                    puzzle += '<img alt=" " class="puzzle" src="slice_1_2.png">';
+                else
+                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
 
-                    if (this.inv.join('').indexOf('碎片8') >= 0)
-                        puzzle += '<img alt=" " class="puzzle" src="slice_2_1.png">';
-                    else
-                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+                if (str_puzzle.indexOf('碎片7') >= 0)
+                    puzzle += '<img alt=" " class="puzzle" src="slice_2_0.png">';
+                else
+                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
 
-                    if (this.inv.join('').indexOf('碎片9') >= 0)
-                        puzzle += '<img alt=" " class="puzzle" src="slice_2_2.png">';
-                    else
-                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+                if (str_puzzle.indexOf('碎片8') >= 0)
+                    puzzle += '<img alt=" " class="puzzle" src="slice_2_1.png">';
+                else
+                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
 
-                    puzzle += '</div> ';
+                if (str_puzzle.indexOf('碎片9') >= 0)
+                    puzzle += '<img alt=" " class="puzzle" src="slice_2_2.png">';
+                else
+                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+
+                puzzle += '</div>';
                 return puzzle;
             }
             return options.defaultStrings.empty; // nothing is in this inventory
