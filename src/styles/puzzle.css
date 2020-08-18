@@ -1,0 +1,11 @@
+.puzzle
+{
+    margin: 0;
+    border: 0;
+    width: 33%;
+    float: left;
+}
+
+#content {
+    width: 100%;
+}

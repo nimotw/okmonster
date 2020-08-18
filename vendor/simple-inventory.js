@@ -8,7 +8,7 @@
     var options = {
         tryGlobal : true,
         defaultStrings : {
-            empty     : 'The inventory is empty...',
+            empty     : '你的背包是空的',
             listDrop  : 'Discard',
             separator : '\n'
         }
@@ -199,6 +199,70 @@
         },
         
         show : function (sep) { // returns a string representing the inventory
+            if (!sep || typeof sep !== 'string') {
+                sep = options.defaultStrings.separator; // default
+            }
+
+            var g_inv = JSON.parse(getCookie('inv'));
+            if (g_inv)
+                this.inv = g_inv;
+            else
+                this.inv = [];
+
+            if (this.inv.length) {
+                var puzzle = '<div id="content">';
+                    if (this.inv.join('').indexOf('碎片1') >= 0)
+                        puzzle += '<img alt=" " class="puzzle" src="slice_0_0.png">';
+                    else
+                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+
+                    if (this.inv.join('').indexOf('碎片2') >= 0)
+                        puzzle += '<img alt=" " class="puzzle" src="slice_0_1.png">';
+                    else
+                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+
+                    if (this.inv.join('').indexOf('碎片3') >= 0)
+                        puzzle += '<img alt=" " class="puzzle" src="slice_0_2.png">';
+                    else
+                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+
+                    if (this.inv.join('').indexOf('碎片4') >= 0)
+                        puzzle += '<img alt=" " class="puzzle" src="slice_1_0.png">';
+                    else
+                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+
+                    if (this.inv.join('').indexOf('碎片5') >= 0)
+                        puzzle += '<img alt=" " class="puzzle" src="slice_1_1.png">';
+                    else
+                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+
+                    if (this.inv.join('').indexOf('碎片6') >= 0)
+                        puzzle += '<img alt=" " class="puzzle" src="slice_1_2.png">';
+                    else
+                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+
+                    if (this.inv.join('').indexOf('碎片7') >= 0)
+                        puzzle += '<img alt=" " class="puzzle" src="slice_2_0.png">';
+                    else
+                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+
+                    if (this.inv.join('').indexOf('碎片8') >= 0)
+                        puzzle += '<img alt=" " class="puzzle" src="slice_2_1.png">';
+                    else
+                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+
+                    if (this.inv.join('').indexOf('碎片9') >= 0)
+                        puzzle += '<img alt=" " class="puzzle" src="slice_2_2.png">';
+                    else
+                        puzzle += '<img alt=" " class="puzzle" src="blank.png">';
+
+                    puzzle += '</div> ';
+                return puzzle;
+            }
+            return options.defaultStrings.empty; // nothing is in this inventory
+        },
+
+        show1 : function (sep) { // returns a string representing the inventory
             if (!sep || typeof sep !== 'string') {
                 sep = options.defaultStrings.separator; // default
             }

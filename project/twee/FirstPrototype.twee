@@ -581,13 +581,46 @@ predisplay["Menu Return"] = function (taskName) {
 :: branch1 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
 支線碎片1
 <<pickup '$inventory' '碎片1'>>
-
 (閱讀完後，請關閉此分頁，回到原遊戲頁面)
 
 :: branch2 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
 支線碎片2
 <<pickup '$inventory' '碎片2'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
 
+:: branch3 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片3
+<<pickup '$inventory' '碎片3'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch4 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片4
+<<pickup '$inventory' '碎片4'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch5 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片5
+<<pickup '$inventory' '碎片5'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch6 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片6
+<<pickup '$inventory' '碎片6>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch7 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片7
+<<pickup '$inventory' '碎片7>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch8 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片8
+<<pickup '$inventory' '碎片8>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch9 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片9
+<<pickup '$inventory' '碎片9>>
 (閱讀完後，請關閉此分頁，回到原遊戲頁面)
 
 :: dropall [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
