@@ -41,9 +41,8 @@
     // constructor
 
     function Inventory (array) {
-        console.log(getCookie('inv'));
-        //console.log('erase cookie');
-        //eraseCookie('inv');
+        //console.log(getCookie('inv'));
+        console.log(localStorage.getItem('inv'));
         if (array) {
             // some number of arguments were passed
             array = [].slice.call(arguments);
@@ -159,16 +158,20 @@
                     }(items));
                 }
                 // concat the arrays and call the event
-                console.log('getCookie' + getCookie('inv'));
-                var g_inv = JSON.parse(getCookie('inv'));
+                //console.log('getCookie' + getCookie('inv'));
+                console.log('getItem' + localStorage.getItem('inv'));
+                //var g_inv = JSON.parse(getCookie('inv'));
+                var g_inv = JSON.parse(localStorage.getItem('inv'));
                 if (!g_inv)
                     this.inv = this.inv.concat(items);
                 else
                     this.inv = g_inv.concat(items);
                 var ss = JSON.stringify(this.inv);
-                setCookie('inv', ss);
+                //setCookie('inv', ss);
+                localStorage.setItem('inv', ss);
                 console.log('set:' + ss);
-                console.log('get:' + getCookie('inv'));
+                //console.log('get:' + getCookie('inv'));
+                console.log('get:' + localStorage.getItem('inv'));
 
                 _attachEvent(this, null, items, 'pickup');
             }
@@ -203,7 +206,8 @@
                 sep = options.defaultStrings.separator; // default
             }
 
-            var g_inv = JSON.parse(getCookie('inv'));
+            //var g_inv = JSON.parse(getCookie('inv'));
+            var g_inv = JSON.parse(localStorage.getItem('inv'));
             if (g_inv)
                 this.inv = g_inv;
             else
@@ -508,7 +512,8 @@
     Macro.add('dropall', {
         handler : function () {
             console.log("dropall");
-            eraseCookie('inv');
+            //eraseCookie('inv');
+            localStorage.removeItem('inv');
             
             if (this.args.length !== 1) {
                 return this.error('incorrect number of arguments');
