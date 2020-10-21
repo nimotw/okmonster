@@ -1,0 +1,790 @@
+:: StoryTitle
+社大遊戲關卡雛形
+
+
+:: StoryData
+{
+	"ifid": "2319E8AF-64BD-4AD3-85B2-229958A990CB",
+	"format": "SugarCube",
+	"format-version": "2.31.1",
+	"start": "start",
+	"zoom": 1
+}
+
+
+:: Story Stylesheet [stylesheet]
+/*字體*/
+@import url('https://fonts.googleapis.com/earlyaccess/notosanstc.css');
+
+.message {
+  font-family: 'Noto Sans TC', sans-serif;
+}
+/*字體結束*/
+
+/*紙條*/
+.paperheader {
+	background-color: #FFF;
+	margin-top: -5px;
+	margin-left: -42px;
+	min-height: 60px;
+	padding-left: 42px;
+}
+.paper {
+	font: italic 16px cursive;
+	font: 28px "Brush Script MT";
+	font: bold italic 25px "Reenie Beanie";
+	font: bold italic 20px "Waiting for the Sunrise";
+	line-height: 20px;
+	position: relative;
+	min-width: 508px;
+	margin: 0 auto;
+	padding: 8px 5px 4px 42px;
+	color: #444;
+	border: 1px solid #d2d2d2;
+	background: #fff;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;
+	background: -webkit-gradient(linear, left top, left bottom, from(#d9eaf3), color-stop(8%, #fff)) 0 4px;
+	background: -webkit-linear-gradient(#d9eaf3 0%, #fff 8%) 0 4px;
+	background: -moz-linear-gradient(#d9eaf3 0%, #fff 8%) 0 4px;
+	background: -o-linear-gradient(#d9eaf3 0%, #fff 8%) 0 4px;
+	background: linear-gradient(#d9eaf3 0%, #fff 8%) 0 4px;
+	-webkit-background-size: 100% 20px;
+	   -moz-background-size: 100% 20px;
+		-ms-background-size: 100% 20px;
+		 -o-background-size: 100% 20px;
+			background-size: 100% 20px;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+			border-radius: 3px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+			box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+}
+.paper::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 30px;
+	width: 4px;
+	bottom: 0;
+	border: 1px solid;
+	border-color: transparent #efe4e4;
+}
+.papertext {
+	display: inline-block;
+	position: relative;
+	top: 4px;
+}
+/*紙條結束*/
+
+/*時間倒數*/
+/*
+Makes sure that elements stay within the page width - scrollbar width.
+*/
+html, body {
+	width: -webkit-calc(100vw - 16px);
+	width: -moz-calc(100vw - 16px);
+	width: calc(100vw - 16px);
+	min-height: 100%;
+}
+#timer {
+	position: fixed;
+	top: 10px;
+	right: 40px;
+	width: 146px;
+	line-height: 1.55;
+	padding: 0 14px;
+	color: rgb(238, 238, 238);
+	-webkit-border-radius: 16px;
+	   -moz-border-radius: 16px;
+			border-radius: 16px;
+	border: 2px solid white;
+	-webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.72);
+	   -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.72);
+			box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.72);
+	margin-right: 20px;
+	z-index: 20;
+	-webkit-transition: background-color 1s;
+		 -o-transition: background-color 1s;
+	   -moz-transition: background-color 1s;
+			transition: background-color 1s;
+}
+.timergreen {
+	background-color: darkgreen;
+}
+.timeramber {
+	background-color: #8E7306;
+}
+.timerred {
+	background-color: darkred;
+}
+/*時間倒數結束*/
+
+/* 隱藏側邊欄開始 */
+body[data-tags~="no-side-bar"] #ui-bar {
+	display: none;
+}
+
+body[data-tags~="no-side-bar"] #ui-bar~#story {
+    margin-left: 4.5em;
+}
+/* 隱藏側邊欄結束 */
+
+/* 對話框開始 */
+.say {
+    border: 0px solid #eee;
+    overflow: auto;
+}
+
+.say img {
+    max-width: 20%;
+    float: left;
+    margin-right: 1em;
+}
+
+.say p:first-of-type {
+    font-weight: bold;
+    margin: 0.2em 0;
+    border-bottom: 0px solid #eee;
+}
+
+.say p:last-of-type {
+    padding: 0.5em;
+    margin: 0;
+}
+/* 對話框結束 */
+
+/* 圖片置中開始 */
+.passage .centered-image img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+/* 圖片置中結束 */
+
+/* 文字置中開始 */
+.center {
+	text-align: center;
+}
+/* 文字置中結束 */
+
+/* hovertip code - Start */
+.hoverTip {
+	display: inline-block;
+	top: 4px;
+	border-width: 0px;
+    border-bottom: 2px dotted white;  /* If you want dots under the hoverable text */
+}
+.hoverTipTxt {
+	position: relative;
+	vertical-align: text-bottom;
+	line-height: initial;
+}
+.hoverTipTxt span {
+	position: absolute;
+	visibility: hidden;
+}
+.hoverTipTxt:hover span, .hoverTipTxt:focus span {
+	visibility: visible;
+}
+.hoverBox {
+	padding: 3px 10px;
+	width: intrinsic;  /* Safari/WebKit uses a non-standard name */
+	width: -webkit-max-content;  /* Chrome */
+	width: -moz-max-content;  /* Firefox/Gecko */
+	width: max-content;
+	max-width: 330px;
+	line-height: initial;
+	text-align: left;
+	color: white;
+	background-color: black;
+	border: #7f7f7f solid 2px;
+	-webkit-border-radius: 6px;
+	   -moz-border-radius: 6px;
+	        border-radius: 6px;
+	-webkit-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.75);
+	   -moz-box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.75);
+	        box-shadow: 0px 0px 12px 2px rgba(0, 0, 0, 0.75);
+	z-index: 100;
+}
+.hoverTail::after {
+	content: "";
+	position: absolute;
+	top: 100%;  /* At the bottom of the tooltip */
+	left: 50%;
+	margin-left: -5px;
+	border-width: 8px;
+	border-style: solid;
+	border-color: #7f7f7f transparent transparent transparent;
+	z-index: 100;
+}
+.hoverBox a {
+	-webkit-transition-duration: unset;
+	   -moz-transition-duration: unset;
+	     -o-transition-duration: unset;
+	        transition-duration: unset;
+}
+#ui-bar .hoverBox {
+	max-width: 240px;
+}
+/* hovertip code - End */
+
+.delayed {
+    opacity: 0;
+}
+
+
+:: Story JavaScript [script]
+/* 特定片段產生連結網址開始 */
+if ("onhashchange" in window) {  // event supported
+	window.onhashchange = function () {
+		hashChanged();
+	};
+} else {  // event not supported
+	window.setInterval(function () {
+		if (window.location.hash != setup.storedHash) {
+			hashChanged();
+		}
+	}, 100);
+}
+function hashChanged() {
+	if (Engine.isIdle()) {
+		if (window.location.hash && (setup.storedHash != window.location.hash)) {
+			setup.storedHash = window.location.hash;
+			var anchor = decodeURI(window.location.hash.substring(1));
+			if (Story.has(anchor) && (passage() !== anchor)) {
+				Engine.play(anchor);
+			}
+		} else {
+			// Comment out the following line of code if you don't want the
+			// anchor link of the current passage displayed in the URL bar.
+			//window.location.hash = encodeURI(passage());
+		}
+		// Comment out the following line of code if you don't want the
+		// title of the page set to the passage name.
+		//document.title = passage();
+	} else {
+		setTimeout(hashChanged, 100);
+	}
+}
+$(document).on(':passageend', function () { hashChanged(); });
+/* 特定片段產生連結網址結束 */
+
+/* 介面中文化開始 */
+!function(){l10nStrings.identity="遊戲",l10nStrings.aborting="終止",l10nStrings.cancel="取消",l10nStrings.close="關閉",l10nStrings.ok="確認",l10nStrings.errorTitle="錯誤",l10nStrings.errorNonexistentPassage='段落"{passage}"不存在',l10nStrings.errorSaveMissingData="存檔缺少必須的數據，可能被讀取的文件不是存檔或存檔被損壞",l10nStrings.errorSaveIdMismatch="保存{identity}是錯誤的",l10nStrings._warningIntroLacking="你的瀏覽器可能損壞或者被禁用",l10nStrings._warningOutroDegraded="，所以{identity}在受限模式中運行。你可以繼續運行，但是一些內容可能不能正確工作。",l10nStrings.warningNoWebStorage="{_warningIntroLacking} Web Storage API {_warningOutroDegraded}",l10nStrings.warningDegraded="{_warningIntroLacking} {identity}需要的功能 {_warningOutroDegraded}",l10nStrings.debugViewTitle="調適模式",l10nStrings.debugViewToggle="切換調適模式",l10nStrings.uiBarToggle="打開/關閉導航欄",l10nStrings.uiBarBackward="後退",l10nStrings.uiBarForward="前進",l10nStrings.uiBarJumpto="跳到{identity}的歷史紀錄中的某一點",l10nStrings.jumptoTitle="跳到",l10nStrings.jumptoTurn="轉到",l10nStrings.jumptoUnavailable="目前沒有跳躍點…",l10nStrings.savesTitle="存檔",l10nStrings.savesDisallowed="在這個段落中不允許存檔",l10nStrings.savesEmptySlot="— 插槽空 —",l10nStrings.savesIncapable="{_warningIntroLacking}支持存檔所需的功能，因此本次遊戲的存檔功能已被禁用",l10nStrings.savesLabelAuto="自動存檔",l10nStrings.savesLabelDelete="刪除",l10nStrings.savesLabelExport="另存為……",l10nStrings.savesLabelImport="讀取……",l10nStrings.savesLabelLoad="讀取",l10nStrings.savesLabelClear="全部刪除",l10nStrings.savesLabelSave="保存",l10nStrings.savesLabelSlot="插槽",l10nStrings.savesSavedOn="保存在：",l10nStrings.savesUnavailable="未找到存檔插槽…",l10nStrings.savesUnknownDate="未知",l10nStrings.settingsTitle="設置",l10nStrings.settingsOff="關閉",l10nStrings.settingsOn="開啟",l10nStrings.settingsReset="重置為默認值",l10nStrings.restartTitle="重新開始",l10nStrings.restartPrompt="你確定要重新開始嗎？未保存的進度將會丟失。",l10nStrings.shareTitle="分享",l10nStrings.autoloadTitle="自動保存",l10nStrings.autoloadCancel="前往最初的段落",l10nStrings.autoloadOk="讀取自動存檔",l10nStrings.autoloadPrompt="有一個自動存檔，讀取它還是前往最初的段落？",l10nStrings.macroBackText="返回",l10nStrings.macroReturnText="返回"}();
+/* 介面中文化結束 */
+
+/* hovertip v2.0 - Start */
+window.UpdateHoverTipTxt = function (container) {
+	if (Engine.isIdle()) {
+		clearInterval(HTTIntervalID);
+		if (container === undefined) {
+			container = $(document);
+		} else {
+			container = $(container);
+		}
+		var i, id, top, left, parent, elementList, element, hoverPos, boxPos, zindex;
+		elementList = container.find('span[id^="hoverTipTxt"]');
+		for (i = 0; i < elementList.length; i++) {
+			element = $(elementList[i]);
+			id = elementList[i].id.substring(11);
+			/* Find parent hoverTip item on the page. */
+			parent = $(container).find("#hoverTip" + (id));
+			/* Position bottom of hoverTipTxt just above the parent. */
+			top = Math.round(-element.outerHeight() - 6);
+			/* Center hoverTipTxt horizontally over parent. */
+			left = Math.round((parent.outerWidth() - element.outerWidth()) / 2);
+			/* See if the hoverTip is contained by something with a higher z-index. */
+			zindex = element.css("z-index");
+			if (zindex === "auto") {
+				zindex = 0;
+			} else {
+				zindex = parseInt(zindex, 10);
+			}
+			while (parent.parent()[0] !== document) {
+				if ((parent.parent().css("z-index") !== "auto") && (parseInt(parent.parent().css("z-index"), 10) > zindex)) {
+					/* Get container rect. */
+					boxPos = parent[0].getBoundingClientRect();
+					break;
+				}
+				parent = parent.parent();
+			}
+			/* Update position. */
+			element.css({ top: top, left: left });
+			hoverPos = element[0].getBoundingClientRect();
+			/* Make sure the text isn't outside the bottom of the screen. */
+			if (hoverPos.top > window.innerHeight - hoverPos.height - 10) {
+				top -= hoverPos.top - (window.innerHeight - hoverPos.height - 10);
+			}
+			/* Make sure the text isn't outside the top of the screen. */
+			if (hoverPos.top < 4) {
+				top -= hoverPos.top - 4;
+			}
+			/* Make sure the text isn't outside the right of the screen. */
+			if (hoverPos.left > window.innerWidth - hoverPos.width - 26) {
+				left -= hoverPos.left - (window.innerWidth - hoverPos.width - 26);
+			}
+			/* Make sure the text isn't outside the left of the screen. */
+			if (hoverPos.left < 4) {
+				left -= hoverPos.left - 4;
+			}
+			/* Update position. */
+			element.css({ top: Math.round(top), left: Math.round(left) });
+			hoverPos = element[0].getBoundingClientRect();
+			if (boxPos) {  /* Fit within dialog boxes and the like. */
+				/* Make sure the text isn't outside the bottom of the box. */
+				if (hoverPos.top > boxPos.bottom - hoverPos.height - 10) {
+					top -= hoverPos.top - (boxPos.bottom - hoverPos.height - 10);
+				}
+				/* Make sure the text isn't outside the top of the box. */
+				if (hoverPos.top < boxPos.top + 4) {
+					top -= hoverPos.top - (boxPos.top + 4);
+				}
+				/* Make sure the text isn't outside the right of the box. */
+				if (hoverPos.left > boxPos.right - hoverPos.width - 26) {
+					left -= hoverPos.left - (boxPos.right - hoverPos.width - 26);
+				}
+				/* Make sure the text isn't outside the left of the box. */
+				if (hoverPos.left < boxPos.left + 4) {
+					left -= hoverPos.left - boxPos.left - 4;
+				}
+				/* Update position. */
+				element.css({ top: Math.round(top), left: Math.round(left) });
+			}
+		}
+	} else {
+		clearInterval(HTTIntervalID);
+		HTTIntervalID = setInterval(UpdateHoverTipTxt, 300);
+	}
+};
+/*  Waits for passage to be fully rendered before doing anything.  */
+var HTTIntervalID = 0;
+$(document).on(":passageend", function (ev) {
+	UpdateHoverTipTxt();
+});
+$(window).on("resize scroll", function (ev) {
+	clearInterval(HTTIntervalID);
+	HTTIntervalID = setInterval(UpdateHoverTipTxt, 300);
+});
+$("#ui-bar-toggle").on("click", function (ev) {
+	clearInterval(HTTIntervalID);
+	HTTIntervalID = setInterval(UpdateHoverTipTxt, 300);
+});
+/* <<hovertip>> macro */
+Macro.add("hovertip", {
+	tags	 : null,
+	handler  : function () {
+		if (this.args.length > 0) {
+			var mw = "";
+			if ((this.args.length > 1) && (!isNaN(parseInt(this.args[1], 10)))) {
+				mw = ' style="max-width: ' + parseInt(this.args[1], 10) + 'px;"';
+			}
+			if (State.temporary.HoverTipCount == undefined) {
+				State.temporary.HoverTipCount = 1;
+			} else {
+				State.temporary.HoverTipCount++;
+			}
+			while ($("#hoverTip" + State.temporary.HoverTipCount).length) {
+				/* Found an existing hoverTip. */
+				State.temporary.HoverTipCount++;
+			}
+			var output = '<span id="hoverTip' + State.temporary.HoverTipCount +
+					'" class="hoverTipTxt hoverTip" tabindex="0" ' +
+					'onmouseenter="UpdateHoverTipTxt();">' +
+					this.payload[0].contents + '<span id="hoverTipTxt' +
+					State.temporary.HoverTipCount + '" class="hoverBox hoverTail"' +
+					mw + '>' + this.args[0] + '</span></span>';
+			$(this.output).wiki(output);
+		} else {
+			$(this.output).wiki(this.payload[0].contents);
+		}
+	}
+});
+/* hovertip v2.0 - End */
+
+/* Delayed Text code - Start */
+$(document).on(':passagerender', function (ev) {
+	// Find all elements containing the delayed class.
+	var elems = $(ev.content).find('.delayed');
+	// Appearance delay (in milliseconds) between each delayed text block.
+	var delay = 1000; // 1 second fade-in
+	if (elems.length > 0) {
+		elems.each(function (i) {
+			$(this)
+				.delay(delay * (i + 1))
+				.fadeTo(delay, 1);
+		});
+	}
+});
+/* Delayed Text code - End */
+
+/* 返回前頁開始 */
+predisplay["Menu Return"] = function (taskName) {
+	if (! tags().contains("noreturn")) {
+		State.variables.return = passage();
+	}
+};
+/* 返回前頁結束 */
+
+
+:: start {"position":"900,100","size":"100,100"}
+<<newinventory '$inventory'>>
+@@.center;
+<h1>代天府的挑戰</h1>
+@@
+<div class="centered-image">
+   <img src="https://stat.ameba.jp/user_images/20160928/10/sato-haruo/a2/5c/j/o0500031413759470952.jpg" width="400">
+</div>
+<div class="message">
+@@.center;
+孤守陳姓家廟如此多年，卻遲遲等不到「那位」大爺前來迎娶，實在讓我倍受寂寞。
+@@
+</div>
+<<if ndef $level1f>><<set $level1f to 1>><</if>>
+<<switch $level1f>>
+<<case 1>>
+  <<linkreplace "繼續探索" t8n>><strong>你看到了女鬼</strong>
+	  <<timed 2s t8n>>
+		<div class="say">
+			<img src="https://stickershop.line-scdn.net/stickershop/v1/product/1305453/LINEStorePC/main.png">
+			<p>女鬼</p>
+			<p>既然今日你想要拿到這張碎片，那就得陪陪我這弱女子度過些許時光吧！
+			用這張@@color:red; <<hovertip '在道具包中找出字母表'>>漢字對應拉丁字母表<</hovertip>>@@，解開我藏在代天府的秘密吧！
+			</p>
+		</div>
+	  <</timed>>
+	  <<timed 3s t8n>>
+		<<set $answer to ''>>\
+		  請輸入答案：<<textbox '$answer' '' autofocus>>\
+		<span id='textbox-reply'></span>
+		<span id='textbox-submit'>\
+		<<button '輸入'>>
+		  <<set $answer to $answer.trim().toLowerCase()>>
+			<<if $answer is 'flood'>>
+			  <<goto "第一關正確">>
+			<<else>>
+			  <<goto "第一關錯誤">>\
+			<</if>>
+		<</button>>\
+		</span>
+	  <</timed>>
+	<</linkreplace>>
+<<default>>
+  <strong>你看到了女鬼</strong>
+  <div class="say">
+	<img src="https://stickershop.line-scdn.net/stickershop/v1/product/1305453/LINEStorePC/main.png">
+	<p>女鬼</p>
+	<p>既然今日你想要拿到這張碎片，那就得陪陪我這弱女子度過些許時光吧！
+	用這張@@color:red; <<hovertip '在道具包中找出字母表'>>漢字對應拉丁字母表<</hovertip>>@@，解開我藏在代天府的秘密吧！
+	</p>
+  </div>
+  <<set $answer to ''>>\
+  	請輸入答案：<<textbox '$answer' '' autofocus>>\
+  <span id='textbox-reply'></span>
+  <span id='textbox-submit'>\
+  <<button '輸入'>>
+	<<set $answer to $answer.trim().toLowerCase()>>
+	<<if $answer is 'flood'>>
+		<<goto "第一關正確">>
+	<<else>>
+		<<goto "第一關錯誤">>\
+	<</if>>
+  <</button>>\
+  </span>
+<</switch>>
+<<if def $level1f>><<set $level1f ++>><</if>>
+
+
+:: StoryAuthor [noreturn] {"position":"400,300","size":"100,100"}
+(製作單位)
+
+
+:: StoryBanner [noreturn] {"position":"400,0","size":"100,100"}
+<img src="https://spng.subpng.com/20180329/fwe/kisspng-cat-dog-pet-logo-scratching-post-element-5abc8d9c15ba72.288343631522306460089.jpg" width="64" height="64">
+
+
+:: StoryCaption [noreturn] {"position":"400,400","size":"100,100"}
+
+
+:: StoryDisplayTitle [noreturn] {"position":"400,100","size":"100,100"}
+遊戲標題
+
+
+:: #StoryInterface [noreturn] {"position":"400,700","size":"100,100"}
+更改側邊選單的介面樣式
+
+
+:: StoryMenu [noreturn] {"position":"400,500","size":"100,100"}
+/* 側邊欄選單項目 */
+[[背包|背包]]
+
+
+:: 背包 [noreturn] {"position":"600,500","size":"100,100"}
+<<inventory '$inventory'>>
+/*
+<<if $inventory.length is 0>>\
+    什麼都沒有。
+<<else>>\
+    背包裡有：
+	<br><<= $inventory.join(' <br> ')>>
+<</if>>
+*/
+
+[[返回前頁|$return]]
+
+
+:: StorySubtitle [noreturn] {"position":"400,200","size":"100,100"}
+-副標題-
+
+
+:: StoryInit [noreturn] {"position":"400,600","size":"100,100"}
+/* 設置角色屬性 */
+<<set $hp to 10>> 設置血量
+<<set $money to 20>> 設置金錢
+
+/* 設置物品變數 */
+/*<<set $inventory to []>> 設置背包*/
+<<set $foldfan to "摺扇">>
+<<set $diaryA to "日記碎片A">>
+
+/* 設置箱子(裡面有物品) */
+<<set $chest to ['摺扇', '日記碎片A']>> 設置箱子內容物
+<<set $chestOpen to false>> 設置箱子未開啟
+
+/* 關卡提示 */
+<<set $textGroup to 1>>
+
+
+:: PassageHeader [noreturn] {"position":"300,0","size":"100,100"}
+/* 設定有noheader標籤的片段不會出現頁首內容 */
+<<if not tags().includes("noheader")>>\
+/* 顯示當前片段的網址 */
+<div style="float: right;"><a @href="encodeURI(decodeURI(document.location.href.match(/(^[^#]*)/)[0])+'#'+passage())" alt="此頁連結" title="此頁連結">#</a></div>
+<</if>>
+
+
+:: PassageFooter [noreturn] {"position":"300,100","size":"100,100"}
+/* 設定有nofooter標籤的片段不會出現頁尾內容 */
+<<if not tags().includes("nofooter")>>
+[[閱讀製作說明|說明文件]]
+<</if>>
+
+
+:: 第一關正確 {"position":"900,250","size":"100,100"}
+<<unset $textGroup>>
+@@.delayed;答對了！@@
+@@.delayed;女鬼完成了心願@@
+@@.delayed;[[前往第二關|第二關]]@@
+
+
+:: branch1 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片1
+<<pickup '$inventory' '碎片1'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch2 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片2
+<<pickup '$inventory' '碎片2'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch3 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片3
+<<pickup '$inventory' '碎片3'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch4 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片4
+<<pickup '$inventory' '碎片4'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch5 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片5
+<<pickup '$inventory' '碎片5'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch6 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片6
+<<pickup '$inventory' '碎片6'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch7 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片7
+<<pickup '$inventory' '碎片7'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch8 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片8
+<<pickup '$inventory' '碎片8'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: branch9 [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+支線碎片9
+<<pickup '$inventory' '碎片9'>>
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: dropall [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+丟掉所有碎片
+<<dropall '$inventory'>>
+
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+
+:: 第二關 {"position":"900,400","size":"100,100"}
+女鬼給了你一個盒子。
+
+<<if not $chestOpen>>\
+	<<timed 2s>>
+	你要打開盒子嗎？
+	  <<link [[打開盒子|日記碎片]]>>
+		 <<set $chestOpen to true>>
+		 <<pickup '$inventory' '盒子'>>
+	  <</link>>
+	<</timed>>
+  <<else>>\
+	  盒子已經被打開，裡面空無一物。
+<</if>>
+
+
+:: 日記碎片 {"position":"1100,400","size":"100,100"}
+/*
+盒子裡有<<= $chest.join(' 和 ')>>
+<<set $inventory to $inventory.concat($foldfan)>>
+<<set $inventory to $inventory.concat($diaryA)>>
+*/
+盒子裡有
+<<inventory '$inventory'>>
+
+[[關上盒子->第二關]]
+
+
+:: 第一關錯誤 {"position":"1100,250","size":"100,100"}
+<div class="say">
+	<img src="https://stickershop.line-scdn.net/stickershop/v1/product/1305453/LINEStorePC/main.png">
+	<p>女鬼</p>
+	<p>笑話，這點程度還想拿碎片。該不會看到HERO就自以為是英雄啦？</p>
+  </div>
+  [[再試一次|start]]
+<<if $level1f == 2>>
+	<<include "第一關線索1">>
+<<elseif $level1f == 3>>
+	<<include "第一關線索2">>
+<<else>>
+	<<include "第一關線索3">>
+<</if>>
+
+
+:: 第一關線索1 [noreturn] {"position":"1400,0","size":"100,100"}
+<<linkreplace "<strong>獲得提示</strong>" t8n>>
+----
+  //拜託嘛！漂亮的大姊姊～～～請告訴我提示！//
+  <<timed 1s t8n>>
+	<div class="say">
+	  <img src="https://stickershop.line-scdn.net/stickershop/v1/product/1305453/LINEStorePC/main.png">
+	  <p>女鬼</p>
+	  <p>嘛嘛嘛，真是個好小子。依循著對聯並彼此相連的話，我想就能看出端倪了！</p>
+	</div>
+  <</timed>>
+ <</linkreplace>>
+
+
+:: 第一關線索2 [noreturn] {"position":"1400,100","size":"100,100"}
+<<linkreplace "<strong>獲得提示</strong>" t8n>>
+----
+  @@color:blue;提示一：依循著對聯並彼此相連的話，我想就能看出端倪了！@@
+  //拜託嘛！漂亮的大姊姊～～～再提示多一點嘛！//
+	  <<timed 1s t8n>>
+		<div class="say">
+		  <img src="https://stickershop.line-scdn.net/stickershop/v1/product/1305453/LINEStorePC/main.png">
+		  <p>女鬼</p>
+		  <p>真的是拿你沒辦法，將上下聯轉換成的英文字串起來，並加以斷句可以得知「字」是藏在某處之下，找出對應處其下方的文字由左至右排列即為答案。</p>
+		</div>
+	   <</timed>>
+<</linkreplace>>
+
+
+:: 第一關線索3 [noreturn] {"position":"1400,200","size":"100,100"}
+<<linkreplace "<strong>獲得提示</strong>" t8n>>
+----
+  @@color:blue;提示一：依循著對聯並彼此相連的話，我想就能看出端倪了！@@
+  @@color:blue;提示二：將上下聯轉換成的英文字串起來，並加以斷句可以得知「字」是藏在某處之下，找出對應處其下方的文字由左至右排列即為答案。@@
+  //我真的想不出來，//<<linkappend "//直接告訴我答案嘛～～～～//">>
+		 <<timed 1s t8n>>
+		  <div class="say">
+			<img src="https://stickershop.line-scdn.net/stickershop/v1/product/1305453/LINEStorePC/main.png">
+			<p>女鬼</p>
+			<p>WORD HIDE UNDER W , 字就藏在「w」的下方，找出代天府門口所有對照為W的字，將W下方一個的英 文字由左至右排列即為「FLOOD」</p>
+		  </div>
+		 <</timed>>
+  <</linkappend>>
+<</linkreplace>>
+
+
+:: 說明文件 [nofooter] {"position":"0,200","size":"200,200"}
+<div class="message"><h3>[介面顯示調整]</h3></div>
+1.如果希望片段頁面不要出現''頁首''、''頁尾''的內容(像是用QRCODE連接的支線碎片片段)，可以加上標籤@@color:red; noheader @@和@@color:red; nofooter @@
+
+2.除了故事進行的片段，其於有關介面、選單或機制功能設定的片段，均加上標籤@@color:red;  noreturn @@
+
+3.不希望出現側邊欄的片段，可以加上標籤@@color:red; no-side-bar @@
+
+----
+
+<div class="message"><h3>[文字顯示調整]</h3></div>
+1.預設字體為新細明體，要改成思源黑體，在文字前後加上@@color:green;{{{<div class="message">}}}@@文字內容@@color:green;{{{</div>}}}@@
+
+2.標題的文字，在文字前後加上@@color:green;{{{<h1>}}}@@標題1@@color:green;{{{</h1>}}}@@
+一共有6個階層的標題（1最大~6最小），使用哪個階層就更改h1的數字
+
+//預覽效果//
+<h1>標題1</h1> <h2>標題2</h2> <h3>標題3</h3> <h4>標題4</h4> <h5>標題5</h5> <h6>標題6</h6>
+
+3.更改文字顏色，在文字前後加上@@color:green;{{{@@color:green;}}}@@文字內容@@color:green;{{{@@}}}@@
+要換成其他顏色，更改@@color:green; green @@成其他顏色，顏色名稱詳見[[css顏色表|https://www.w3schools.com/cssref/css_colors.asp]]
+
+4.如果要置中，在文字（圖片亦同）前後加上
+@@color:green;{{{@@.center;}}}@@
+文字內容
+@@color:green;{{{@@}}}@@
+
+5.如果要在文字加上紙條背景，在文字前後加上：
+@@color:green;{{{<section class="paper">\}}}@@
+@@color:green;{{{<article class="paperheader"></article>\}}}@@
+紙條內容
+@@color:green;{{{</section>}}}@@
+
+//預覽效果//
+<section class="paper">\
+	<article class="paperheader"></article>\
+	紙條內容
+	
+</section>
+
+
+----
+<div class="message"><h3>[其他功能]</h3></div>
+1.角色對話框
+@@color:green;{{{<div class="say">}}}@@
+@@color:green;{{{<img src="}}}@@圖片URL@@color:green;{{{">}}}@@
+@@color:green;{{{<p>}}}@@角色名字@@color:green;{{{</p>}}}@@
+@@color:green;{{{<p>}}}@@對話內容@@color:green;{{{</p>}}}@@
+@@color:green;{{{</div>}}}@@
+
+//預覽效果//
+<div class="say">
+<img src="https://stickershop.line-scdn.net/stickershop/v1/product/1305453/LINEStorePC/main.png">
+<p>女鬼</p>
+<p>女鬼講的話</p>
+</div>
+
+2.文字逐行出現
+@@color:green;{{{@@.delayed;}}}@@第一行文字@@color:green;{{{@@}}}@@
+@@color:green;{{{@@.delayed;}}}@@第二行文字@@color:green;{{{@@}}}@@
+@@color:green;{{{@@.delayed;}}}@@第三行文字@@color:green;{{{@@}}}@@
+
+3.幾秒後出現文字
+@@color:green;{{{<<timed 1s t8n>>}}}@@文字內容@@color:green;{{{<</timed>>}}}@@
+要調整出現的時間，更改@@color:green;1s@@(1秒)
+不想要文字淡出，刪掉@@color:green;t8n@@
+
+
