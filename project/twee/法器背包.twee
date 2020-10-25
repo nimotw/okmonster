@@ -1,12 +1,43 @@
 :: 背包 [noreturn] {"position":"300,500","size":"100,100"}
-<<if $inventory.length is 0>>\
-    什麼都沒有。
-<<else>>\
-    背包裡有：
-	<br><<= $inventory.join(' <br> ')>>
-<</if>>
+顯示背包
+<<inventory '$inv'>>
 
 [[返回前頁|$return]]
 
+:: dropall [nofooter no-side-bar noreturn] {"position":"1100,100","size":"100,100"}
+丟掉所有碎片
+<<dropall '$inv'>>
+<<dropall '$binv'>>
+<<dropall '$dinv'>>
+
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
 :: 令人絕望的恐怖事件 [主線碎片] {"position":"600,500","size":"100,100"}
 公廟、恐懼的人群、奶奶、祭壇、大雨到莫名的龐大黑影，這些關鍵記憶都明確告訴我，奶奶不是單純來到信義街，她與信義街的關聯比我想得還要深邃，只不過那所謂『令人絕望的恐怖事件』是什麼？ 一時間我也沒有任何頭緒。
+
+:: 8421ec [nofooter no-side-bar noreturn] {"position":"1099,452","size":"100,100"}
+這不是法器QRCODE網址
+https://nimotw.github.io/alpha1.html#8421ec
+
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: f31e1e [nofooter no-side-bar noreturn] {"position":"1099,452","size":"100,100"}
+<<pickup '$inv' '法器1'>>
+法器一QRCODE網址
+https://nimotw.github.io/alpha1.html#f31e1e
+
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+:: 9d8322 [nofooter no-side-bar noreturn] {"position":"1099,452","size":"100,100"}
+<<pickup '$inv' '法器2'>>
+法器二QRCODE網址
+https://nimotw.github.io/alpha1.html#9d8322
+
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
+
+::f1c6eb [nofooter no-side-bar noreturn] {"position":"1099,452","size":"100,100"}
+<<pickup '$inv' '法器3'>>
+法器三QRCODE網址
+https://nimotw.github.io/alpha1.html#f1c6eb
+
+(閱讀完後，請關閉此分頁，回到原遊戲頁面)
