@@ -42,7 +42,7 @@
 
     function Inventory (array) {
         //console.log(getCookie('inv'));
-        console.log(localStorage.getItem('inv'));
+        console.log(localStorage.getItem('$var'));
         if (array) {
             // some number of arguments were passed
             array = [].slice.call(arguments);
@@ -159,16 +159,16 @@
                 }
                 // concat the arrays and call the event
                 //console.log('getCookie' + getCookie('inv'));
-                console.log('getItem' + localStorage.getItem('inv'));
+                console.log('getItem' + localStorage.getItem('$var'));
                 //var g_inv = JSON.parse(getCookie('inv'));
-                var g_inv = JSON.parse(localStorage.getItem('inv'));
+                var g_inv = JSON.parse(localStorage.getItem('$var'));
                 if (!g_inv)
                     this.inv = this.inv.concat(items);
                 else
                     this.inv = g_inv.concat(items);
                 var ss = JSON.stringify(this.inv);
                 //setCookie('inv', ss);
-                localStorage.setItem('inv', ss);
+                localStorage.setItem('$var', ss);
                 console.log('set:' + ss);
                 //console.log('get:' + getCookie('inv'));
                 console.log('get:' + localStorage.getItem('inv'));
@@ -207,7 +207,7 @@
             }
 
             //var g_inv = JSON.parse(getCookie('inv'));
-            var g_inv = JSON.parse(localStorage.getItem('inv'));
+            var g_inv = JSON.parse(localStorage.getItem('$var'));
             if (g_inv)
                 this.inv = g_inv;
             else
@@ -216,52 +216,7 @@
             if (this.inv.length) {
                 var puzzle = '<div id="content">';
                 var str_puzzle = this.inv.join('');
-
-                if (str_puzzle.indexOf('碎片1') >= 0)
-                    puzzle += '<img alt=" " class="puzzle" src="slice_0_0.png">';
-                else
-                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
-
-                if (str_puzzle.indexOf('碎片2') >= 0)
-                    puzzle += '<img alt=" " class="puzzle" src="slice_0_1.png">';
-                else
-                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
-
-                if (str_puzzle.indexOf('碎片3') >= 0)
-                    puzzle += '<img alt=" " class="puzzle" src="slice_0_2.png">';
-                else
-                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
-
-                if (str_puzzle.indexOf('碎片4') >= 0)
-                    puzzle += '<img alt=" " class="puzzle" src="slice_1_0.png">';
-                else
-                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
-
-                if (str_puzzle.indexOf('碎片5') >= 0)
-                    puzzle += '<img alt=" " class="puzzle" src="slice_1_1.png">';
-                else
-                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
-
-                if (str_puzzle.indexOf('碎片6') >= 0)
-                    puzzle += '<img alt=" " class="puzzle" src="slice_1_2.png">';
-                else
-                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
-
-                if (str_puzzle.indexOf('碎片7') >= 0)
-                    puzzle += '<img alt=" " class="puzzle" src="slice_2_0.png">';
-                else
-                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
-
-                if (str_puzzle.indexOf('碎片8') >= 0)
-                    puzzle += '<img alt=" " class="puzzle" src="slice_2_1.png">';
-                else
-                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
-
-                if (str_puzzle.indexOf('碎片9') >= 0)
-                    puzzle += '<img alt=" " class="puzzle" src="slice_2_2.png">';
-                else
-                    puzzle += '<img alt=" " class="puzzle" src="blank.png">';
-
+				puzzle += str_puzzle;
                 puzzle += '</div>';
                 return puzzle;
             }
@@ -276,7 +231,7 @@
             //var ss = getCookie('inv');
             //console.log(ss);
             
-            var g_inv = JSON.parse(getCookie('inv'));
+            var g_inv = JSON.parse(getCookie('$var'));
             if (g_inv)
                 this.inv = g_inv;
             else
@@ -513,7 +468,7 @@
         handler : function () {
             console.log("dropall");
             //eraseCookie('inv');
-            localStorage.removeItem('inv');
+            localStorage.removeItem('$var');
             
             if (this.args.length !== 1) {
                 return this.error('incorrect number of arguments');
