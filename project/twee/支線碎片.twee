@@ -1,6 +1,6 @@
 :: 支線碎片 [noreturn] {"position":"1101,200","size":"100,100"}
 顯示支線碎片背包
-<<inventory '$binv'>>
+<<inventory '$binv' 'b'>>
 
 [[返回前頁|$return]]
 

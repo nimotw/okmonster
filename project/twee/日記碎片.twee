@@ -1,6 +1,6 @@
 :: 日記碎片 [noreturn] {"position":"200,500","size":"100,100"}
 顯示日記碎片背包
-<<inventory '$dinv'>>
+<<inventory '$dinv' 'd'>>
 
 [[返回前頁|$return]]
 

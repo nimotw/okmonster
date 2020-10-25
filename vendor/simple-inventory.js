@@ -4,7 +4,6 @@
     'use strict';
 
     // options object
-
     var options = {
         tryGlobal : true,
         defaultStrings : {
@@ -39,10 +38,8 @@
     }
 
     // constructor
-
     function Inventory (array) {
-        //console.log(getCookie('inv'));
-        console.log(localStorage.getItem('$var'));
+        console.log(localStorage.getItem('inv'));
         if (array) {
             // some number of arguments were passed
             array = [].slice.call(arguments);
@@ -128,6 +125,8 @@
         
         has : function () { // this inventory has any of the passed items
             var items = [].slice.call(arguments).flatten();
+            var g_inv = JSON.parse(localStorage.getItem('inv'));
+            this.inv = g_inv;
             if (items && items.length) {
                 return this.inv.includesAny(items);
             }
@@ -136,6 +135,8 @@
         
         hasAll : function () { // this inventory has all of the passed items
             var items = [].slice.call(arguments).flatten();
+            var g_inv = JSON.parse(localStorage.getItem('inv'));
+            this.inv = g_inv;
             if (items && items.length) {
                 return this.inv.includesAll(items);
             }
@@ -150,27 +151,26 @@
                     items = (function (items) { 
                         var ret = []; // this code could use some cleanup
                         items.forEach(function (item) {
-                            if (!inventory.inv.includes(item) && !ret.includes(item)) {
+                            if (!this.inv.includes(item) && !inventory.inv.includes(item) && !ret.includes(item)) {
                                 ret.push(item);
                             }
                         });
                         return ret;
                     }(items));
                 }
-                // concat the arrays and call the event
-                //console.log('getCookie' + getCookie('inv'));
-                console.log('getItem' + localStorage.getItem('$var'));
-                //var g_inv = JSON.parse(getCookie('inv'));
-                var g_inv = JSON.parse(localStorage.getItem('$var'));
-                if (!g_inv)
+                console.log('getItem' + localStorage.getItem('inv'));
+                var g_inv = JSON.parse(localStorage.getItem('inv'));
+                if (!g_inv) {
                     this.inv = this.inv.concat(items);
-                else
+                } else {
                     this.inv = g_inv.concat(items);
+                }
+                let unique = [...new Set(this.inv)];
+                this.inv = unique;
+                console.log('unique:'+unique);
                 var ss = JSON.stringify(this.inv);
-                //setCookie('inv', ss);
-                localStorage.setItem('$var', ss);
+                localStorage.setItem('inv', ss);
                 console.log('set:' + ss);
-                //console.log('get:' + getCookie('inv'));
                 console.log('get:' + localStorage.getItem('inv'));
 
                 _attachEvent(this, null, items, 'pickup');
@@ -206,47 +206,40 @@
                 sep = options.defaultStrings.separator; // default
             }
 
-            //var g_inv = JSON.parse(getCookie('inv'));
-            var g_inv = JSON.parse(localStorage.getItem('$var'));
+            var g_inv = JSON.parse(localStorage.getItem('inv'));
             if (g_inv)
                 this.inv = g_inv;
             else
                 this.inv = [];
 
             if (this.inv.length) {
-                var puzzle = '<div id="content">';
-                var str_puzzle = this.inv.join('');
-				puzzle += str_puzzle;
-                puzzle += '</div>';
-                return puzzle;
+                if (sep == 'd')
+                {
+                    var tmp_inv = this.inv.filter(e => e.indexOf('日') > -1 );
+                    var puzzle = '<div id="content">';
+                    var str_puzzle = tmp_inv.join(', ');
+                    puzzle += str_puzzle;
+                    puzzle += '</div>';
+                    return puzzle;
+                } else if (sep == 'b') {
+                    var tmp_inv = this.inv.filter(e => e.indexOf('支') > -1 );
+                    var puzzle = '<div id="content">';
+                    var str_puzzle = tmp_inv.join(', ');
+                    puzzle += str_puzzle;
+                    puzzle += '</div>';
+                    return puzzle;
+                } else {
+                    var tmp_inv = this.inv.filter(e => e.indexOf('法') > -1 );
+                    var puzzle = '<div id="content">';
+                    var str_puzzle = tmp_inv.join(', ');
+                    puzzle += str_puzzle;
+                    puzzle += '</div>';
+                    return puzzle;
+                }
             }
             return options.defaultStrings.empty; // nothing is in this inventory
         },
 
-        show1 : function (sep) { // returns a string representing the inventory
-            if (!sep || typeof sep !== 'string') {
-                sep = options.defaultStrings.separator; // default
-            }
-
-            //var ss = getCookie('inv');
-            //console.log(ss);
-            
-            var g_inv = JSON.parse(getCookie('$var'));
-            if (g_inv)
-                this.inv = g_inv;
-            else
-                this.inv = [];
-
-            //if (!this.inv) {
-            //    return options.defaultStrings.empty; // nothing is in this inventory
-            //}
-
-            if (this.inv.length) {
-                return this.inv.join(sep);
-            }
-            return options.defaultStrings.empty; // nothing is in this inventory
-        },
-        
         empty : function () { // remove all items from this inventory
             var temp = clone(this.inv); // for the event
             this.inv = []; 
@@ -397,7 +390,6 @@
             if (!Inventory.is(inv)) {
                 return this.error('variable ' + varName + ' is not an inventory!');
             }
-            
             inv.pickUp(this.args.slice(1).flatten());
         }
     });
@@ -467,8 +459,7 @@
     Macro.add('dropall', {
         handler : function () {
             console.log("dropall");
-            //eraseCookie('inv');
-            localStorage.removeItem('$var');
+            localStorage.removeItem('inv');
             
             if (this.args.length !== 1) {
                 return this.error('incorrect number of arguments');
