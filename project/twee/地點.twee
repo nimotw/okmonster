@@ -3,7 +3,7 @@
 
 
 :: 清珍鴨肉羹 {"position":"650,225","size":"100,100"}
-[[返回前頁|$return]]
+<<link "重新開始">><<run Engine.restart()>><</link>>
 
 
 :: 轉場2 {"position":"775,350","size":"100,100"}
@@ -11,6 +11,7 @@
 
 
 :: 老古石渡＆雲澗茶坊 {"position":"650,350","size":"100,100"}
-[[返回前頁|$return]]
+<<link "重新開始">><<run Engine.restart()>><</link>>
+
 
 

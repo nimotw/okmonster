@@ -432,7 +432,7 @@ predisplay["Menu Return"] = function (taskName) {
 
 
 :: StoryBanner [noreturn] {"position":"400,0","size":"100,100"}
-<img src="https://spng.subpng.com/20180329/fwe/kisspng-cat-dog-pet-logo-scratching-post-element-5abc8d9c15ba72.288343631522306460089.jpg" width="64" height="64">
+<img src="https://drive.google.com/uc?id=14_bGCjdkgHaYjjb5C5uMXcbyKKaZZBv1" width="64">
 
 :: StoryCaption [noreturn] {"position":"400,400","size":"100,100"}
 
