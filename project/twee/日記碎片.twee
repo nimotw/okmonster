@@ -1,6 +1,13 @@
 :: 日記碎片 [noreturn] {"position":"200,500","size":"100,100"}
-顯示日記碎片背包
-<<inventory '$dinv' 'd'>>
+<<if $dinv.has('日記碎片1')>>
+<<include '女鬼的碎片'>>
+<<else>>
+<</if>>
+<<if $dinv.has('日記碎片2')>>
+----
+<<include '李青的碎片'>>
+<<else>>
+<</if>>
 
 [[返回前頁|$return]]
 
@@ -15,11 +22,13 @@
 (閱讀完後，請關閉此分頁，回到原遊戲頁面)
 
 :: 女鬼的碎片 [日記碎片] {"position":"600,500","size":"100,100"}
+【令人絕望的恐怖事件】
 公廟、恐懼的人群、奶奶、祭壇、大雨到莫名的龐大黑影，這些關鍵記憶都明確告訴我，奶奶不是單純來到信義街，她與信義街的關聯比我想得還要深邃，只不過那所謂『令人絕望的恐怖事件』是什麼？ 一時間我也沒有任何頭緒。
 <img src="https://drive.google.com/uc?id=1wwiKI4ypfqzMpiSt2BmA4VoStTbvEQsH" width="350" >
 
+
 :: 李青的碎片 [日記碎片] {"position":"718,501","size":"100,100"}
+【記憶的儀式】
 我站在祭壇，看到奶奶從公廟慢慢地朝向高處的祭壇走去，手裡高舉著『法器』，眼前龐大的怪物⋯⋯就是『無支祁』，祂張牙舞爪，舉手投足都掀起驚濤駭浪。
 <img src="https://drive.google.com/uc?id=1uEDsywNIBpKmXCB0pVmdhD4MMAULk3cf" width="350" >
-
 

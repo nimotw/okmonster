@@ -1,5 +1,5 @@
 :: StoryTitle
-社大遊戲
+府城奇聞錄
 
 
 :: StoryData
@@ -427,12 +427,9 @@ predisplay["Menu Return"] = function (taskName) {
 };
 /* 返回前頁結束 */
 
-:: StoryAuthor [noreturn] {"position":"400,300","size":"100,100"}
-(製作單位)
-
 
 :: StoryBanner [noreturn] {"position":"400,0","size":"100,100"}
-<img src="https://drive.google.com/uc?id=14_bGCjdkgHaYjjb5C5uMXcbyKKaZZBv1" width="64">
+<img src="https://drive.google.com/uc?id=14_bGCjdkgHaYjjb5C5uMXcbyKKaZZBv1" width="150">
 
 :: StoryCaption [noreturn] {"position":"400,400","size":"100,100"}
 
@@ -454,8 +451,7 @@ predisplay["Menu Return"] = function (taskName) {
 
 
 :: StorySubtitle [noreturn] {"position":"400,200","size":"100,100"}
--副標題-
-
+-測試版v1-
 
 :: StoryInit [noreturn] {"position":"400,600","size":"100,100"}
 /* 設置角色屬性 */
